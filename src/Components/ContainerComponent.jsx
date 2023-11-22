@@ -24,6 +24,7 @@ function ContainerComponent() {
           <div className="container">
             <TextBox label="Value 1" />
             <TextBox label="Value 2" />
+            <TextBox label="Value 3" />
           </div>
         </Grid>
         <Grid item xs={6}>
