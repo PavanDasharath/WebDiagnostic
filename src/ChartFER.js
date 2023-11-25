@@ -16,8 +16,15 @@ import { Paper } from '@mui/material';
 function ChartFER() {
   const jsonData = useData();
   const [chartData, setChartData] = useState([]);
-  const [legendState, setLegendState] = useState({}); // To manage legend visibility
   const keysToPlot = ['P0FER', 'P1FER', 'P2FER', 'P3FER', 'L1BFER', 'L1DFER'];
+  const [legendState, setLegendState] = useState(() => {
+    // Set initial visibility of legend items
+    const initialLegendState = {};
+    keysToPlot.forEach((key, index) => {
+      initialLegendState[key] = index === 0; // Set to true for the first item, false for others
+    });
+    return initialLegendState;
+  }); // To manage legend visibility
 
   useEffect(() => {
     if (jsonData) {
@@ -43,7 +50,7 @@ function ChartFER() {
 
         setChartData(prevData => [...prevData, newDataPoint]);
 
-        if (chartData.length >= 10) {
+        if (chartData.length >= 100) {
           setChartData(prevData => prevData.slice(1));
         }
       };

@@ -8,8 +8,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-// import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
 import { DataProvider } from '../DataContext';
 //import Receiver from './../Receiver';
 import SignalStatus from './../SignalStatus';
@@ -51,6 +53,25 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
 }));
 
 export default function Dashboard() {
+  // State variables to track start and stop states
+  const [isRunning, setIsRunning] = React.useState(false);
+
+  // Function to handle the start action
+  const handleStart = () => {
+    // Make API call or perform start action
+    console.log('Start action triggered');
+    setIsRunning(true);
+  };
+
+  // Function to handle the stop action
+  const handleStop = () => {
+    // Make API call or perform stop action
+    postData();
+
+    console.log('Stop action triggered');
+    setIsRunning(false);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -70,6 +91,21 @@ export default function Dashboard() {
               <NotificationsIcon />
             </Badge>
           </IconButton> */}
+          {/* Start and Stop Icons */}
+          <IconButton
+            color="inherit"
+            onClick={handleStart}
+            disabled={isRunning}
+          >
+            <PlayArrowIcon />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            onClick={handleStop}
+            disabled={!isRunning}
+          >
+            <StopIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Container sx={{ marginTop: '64px', marginBottom: '32px' }}>

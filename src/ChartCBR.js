@@ -16,8 +16,15 @@ import { Paper } from '@mui/material';
 function ChartCBR() {
   const jsonData = useData();
   const [chartData, setChartData] = useState([]);
-  const [legendState, setLegendState] = useState({});
   const keysToPlot = ['P0CBR', 'P1CBR', 'P2CBR', 'P3CBR'];
+  const [legendState, setLegendState] = useState(() => {
+    // Set initial visibility of legend items
+    const initialLegendState = {};
+    keysToPlot.forEach((key, index) => {
+      initialLegendState[key] = index === 0; // Set to true for the first item, false for others
+    });
+    return initialLegendState;
+  });
 
   useEffect(() => {
     if (jsonData) {
@@ -47,8 +54,8 @@ function ChartCBR() {
         setChartData(prevData => [...prevData, newDataPoint]);
 
         // Remove the first data point if there are more than 20 data points
-        if (chartData.length >= 20) {
-          setChartData(prevData => prevData.slice(1));
+        if (chartData.length >= 100) {
+          setChartData(prevData => prevData.slice(5));
         }
       };
 
