@@ -112,9 +112,9 @@ function ChartSBR() {
               tickFormatter={formatXAxisTick}
             />
             <YAxis
-              domain={[0, 48]} // Set the domain to display from 0 to 48
+              //domain={[0, 48]} // Set the domain to display from 0 to 48
               tick={{
-                values: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48],
+                //values: [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48],
                 fontSize: 12,
                 tickFormatter: value => value.toFixed(10),
               }}

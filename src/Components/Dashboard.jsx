@@ -1,4 +1,5 @@
-import * as React from 'react';
+// import * as React from 'react';
+import React, { useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
@@ -12,8 +13,8 @@ import IconButton from '@mui/material/IconButton';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
-import { DataProvider } from '../DataContext';
-//import Receiver from './../Receiver';
+import { DataProvider, useData } from '../DataContext';
+import Receiver from './../Receiver';
 import SignalStatus from './../SignalStatus';
 import BootstrapParametersCard from '../BootstrapParameters';
 import L1BasicParametersCard from '../L1BasicParameters';
@@ -56,6 +57,21 @@ export default function Dashboard() {
   // State variables to track start and stop states
   const [isRunning, setIsRunning] = React.useState(false);
 
+  const data = useData();
+  const [stopApiCall, setStopApiCall] = useState(false);
+
+  const stopProcess = async () => {
+    if (stopApiCall) {
+      try {
+        const stopProcessEndpoint = 'http://127.0.0.1:5000/stop_activity';
+        await fetch(stopProcessEndpoint, { method: 'POST' });
+        console.log('Stop process API called');
+      } catch (error) {
+        console.error('Error stopping process:', error);
+      }
+    }
+  };
+
   // Function to handle the start action
   const handleStart = () => {
     // Make API call or perform start action
@@ -66,8 +82,8 @@ export default function Dashboard() {
   // Function to handle the stop action
   const handleStop = () => {
     // Make API call or perform stop action
-    postData();
-
+    //postData();
+    stopProcess();
     console.log('Stop action triggered');
     setIsRunning(false);
   };
@@ -110,13 +126,13 @@ export default function Dashboard() {
       </AppBar>
       <Container sx={{ marginTop: '64px', marginBottom: '32px' }}>
         <Grid container spacing={3}>
-          {/* <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <Paper sx={{ p: 2, height: '100%' }}>
               <DataProvider>
                 <Receiver />
               </DataProvider>
             </Paper>
-          </Grid> */}
+          </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Paper sx={{ p: 2, height: '100%' }}>
               <DataProvider>

@@ -110,9 +110,9 @@ function ChartSNR() {
               tickFormatter={formatXAxisTick}
             />
             <YAxis
-              domain={[-10, 42]}
+              //domain={[-10, 42]}
               tick={{
-                values: [-10, -6, 0, 6, 10, 15, 20, 25, 30, 35, 40, 44],
+                //values: [-10, -6, 0, 6, 10, 15, 20, 25, 30, 35, 40, 44],
                 fontSize: 12,
                 tickFormatter: value => value.toFixed(2),
               }}

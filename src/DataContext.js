@@ -30,22 +30,33 @@ export const DataProvider = ({ children }) => {
     };
   }, []);
 
-  const postData = async () => {
-    try {
-      const postEndpointUrl = 'http://127.0.0.1:5000/post-data';
-      // Assuming you have some data to send in the POST request body
-      const postData = {
-        /* Your data here */
-      };
-      const response = await axios.post(postEndpointUrl, postData);
-      // Handle the response if needed
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error sending POST request:', error);
-    }
-  };
+  // const postData = async () => {
+  //   try {
+  //     const postEndpointUrl = 'http://127.0.0.1:5000/post-data';
+  //     // Assuming you have some data to send in the POST request body
+  //     const postData = {
+  //       /* Your data here */
+  //     };
+  //     const response = await axios.post(postEndpointUrl, postData);
+  //     // Handle the response if needed
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     console.error('Error sending POST request:', error);
+  //   }
+  // };
+
+  // const stopApiCall = async () => {
+  //   try {
+  //     const stopApiUrl = 'http://127.0.0.1:5000/stop';
+  //     const response = await axios.post(stopApiUrl);
+  //     console.log('Stop API Response:', response.data);
+  //   } catch (error) {
+  //     console.error('Error calling stop API:', error);
+  //   }
+  // };
 
   return (
+    //<DataContext.Provider value={{ jsonData, stopApiCall, error }}>
     <DataContext.Provider value={jsonData}>{children}</DataContext.Provider>
   );
 };
