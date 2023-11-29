@@ -19,21 +19,64 @@ const SignalStatusCard = () => {
 
   useEffect(() => {
     if (jsonData && jsonData.extra) {
-      const extraData = jsonData.extra;
+      const {
+        rfLock,
+        l1bLock,
+        l1dLock,
+        plp0Lock,
+        plp1Lock,
+        plp2Lock,
+        plp3Lock,
+        resyncCount,
+        tunerRssi,
+      } = jsonData.extra;
 
       setExtraValues({
-        rfLock: extraData.rfLock || '',
-        l1bLock: extraData.l1bLock || '',
-        l1dLock: extraData.l1dLock || '',
-        plp0Lock: extraData.plp0Lock || '',
-        plp1Lock: extraData.plp1Lock || '',
-        plp2Lock: extraData.plp2Lock || '',
-        plp3Lock: extraData.plp3Lock || '',
-        resyncCount: Number(extraData.resyncCount).toFixed() || '',
-        tunerRssi: Number(extraData.tunerRssi).toFixed() || '',
+        rfLock: rfLock || '',
+        l1bLock: l1bLock || '',
+        l1dLock: l1dLock || '',
+        plp0Lock: plp0Lock || '',
+        plp1Lock: plp1Lock || '',
+        plp2Lock: plp2Lock || '',
+        plp3Lock: plp3Lock || '',
+        resyncCount: Number(resyncCount).toFixed() || '',
+        tunerRssi: Number(tunerRssi).toFixed() || '',
       });
     }
   }, [jsonData]);
+
+  const handleValueChange = (key, value) => {
+    if (!isNaN(value) && Number(value) >= 0) {
+      setExtraValues(prevValues => ({
+        ...prevValues,
+        [key]: value,
+      }));
+    }
+  };
+
+  const generateTextField = (label, key) => (
+    <Grid item xs={6} key={key}>
+      <TextField
+        label={label}
+        fullWidth
+        size="small"
+        value={extraValues[key]}
+        onChange={e => handleValueChange(key, e.target.value)}
+        InputProps={{
+          readOnly: true,
+          style: {
+            color:
+              extraValues[key] === 'Locked'
+                ? 'Green'
+                : extraValues[key] === 'Unlocked'
+                ? 'Red'
+                : 'inherit',
+            marginBottom: '0px',
+          },
+        }}
+      />
+    </Grid>
+  );
 
   return (
     <React.Fragment>
@@ -41,196 +84,15 @@ const SignalStatusCard = () => {
       <Card sx={{ width: '100%', marginBottom: '1rem' }}>
         <CardContent>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <TextField
-                label="RF Lock"
-                fullWidth
-                size="small"
-                value={extraValues.rfLock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="L1B Lock"
-                fullWidth
-                size="small"
-                value={extraValues.l1bLock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="L1D Lock"
-                fullWidth
-                size="small"
-                value={extraValues.l1dLock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="PLP0 Lock"
-                fullWidth
-                size="small"
-                value={extraValues.plp0Lock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="PLP1 Lock"
-                fullWidth
-                size="small"
-                value={extraValues.plp1Lock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="PLP2 Lock"
-                fullWidth
-                size="small"
-                value={extraValues.plp2Lock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="PLP3 Lock"
-                fullWidth
-                size="small"
-                value={extraValues.plp3Lock}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Relock Count"
-                fullWidth
-                size="small"
-                value={extraValues.resyncCount}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="RSSI"
-                fullWidth
-                size="small"
-                value={extraValues.tunerRssi}
-                onChange={e => {
-                  const value = e.target.value;
-                  if (!isNaN(value) && Number(value) >= 0) {
-                    setExtraValues(value);
-                  }
-                }}
-                InputProps={{
-                  readOnly: true,
-
-                  style: {
-                    backgroundColor: 'White',
-                    marginBottom: '0px',
-                  },
-                }}
-              />
-            </Grid>
+            {generateTextField('RF Lock', 'rfLock')}
+            {generateTextField('L1B Lock', 'l1bLock')}
+            {generateTextField('L1D Lock', 'l1dLock')}
+            {generateTextField('PLP0 Lock', 'plp0Lock')}
+            {generateTextField('PLP1 Lock', 'plp1Lock')}
+            {generateTextField('PLP2 Lock', 'plp2Lock')}
+            {generateTextField('PLP3 Lock', 'plp3Lock')}
+            {generateTextField('Relock Count', 'resyncCount')}
+            {generateTextField('RSSI', 'tunerRssi')}
           </Grid>
         </CardContent>
       </Card>
